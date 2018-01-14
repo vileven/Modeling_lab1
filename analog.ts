@@ -1,31 +1,27 @@
 /**
- *  Лабораторная работа по моделированию №1
- *  Построение марковской цепи при дискретном времени
+ * Лабораторная работа №1
+ * Моделироавание марковской цепи
+ * Аналоговый случай
  */
 
 import * as readLine from 'readline-sync';
 import {parseNumbers, isTransitionLineRight, getArrayFrom1ToN, inputInitialValues} from './common';
+
+declare type StateObject = {state: number, minTau: number};
 
 /**
  * Функция выбора состояния из вектора
  * @param {number[]} vect вектор – массив чисел
  * @returns {number} новое случайное состояние – по расчетам
  */
-const getState: (vect: number[]) => number =
+const getState: (vect: number[]) => StateObject =
 		vect => {
-			const rnd: number = Math.random();
-			let result: number = vect.length - 1;
+			const taus: number[] = vect.map(el => (-1 / el) * Math.log(Math.random()) );
+			const state: number = taus.indexOf(Math.min(...taus));
 
-			vect.reduce((prev, cur, index) => {
-				if (prev <= rnd && rnd <= cur) {
-					result = index;
-				}
-
-				return prev + cur;
-			}, 0);
-
-			return result;
+			return {state, minTau: taus[state]};
 		};
+
 
 // ввод исходных данных
 const {n, initialVector, transitionMatrix}: {n: number, initialVector: number[], transitionMatrix: number[][]} =
@@ -38,14 +34,14 @@ const {n, initialVector, transitionMatrix}: {n: number, initialVector: number[],
  */
 const chainSize = Number(process.argv[2]) || 10;
 
-let state = getState(initialVector);
-const result: number[] = [state];
+let statePair: StateObject = getState(initialVector);
+const result: StateObject[] = [statePair];
 
 getArrayFrom1ToN(chainSize).forEach(() => {
-	state = getState(transitionMatrix[state]);
-	result.push(state);
+	statePair = getState(transitionMatrix[statePair.state]);
+	result.push(statePair);
 });
 
 // Вывод результата
 console.log('Результат моделирования: ');
-console.log(result.join('-'));
+console.log(result.map(({state, minTau}) => `${state}, ${minTau}`).join('\n'));

@@ -4,7 +4,8 @@
   "description": "Лабораторная по моделированию №1",
   "main": "index.js",
   "scripts": {
-    "digit": "./node_modules/typescript/bin/tsc --lib ES2017 digit.ts && node digit.js",
+    "digit": "tsc --lib ES2017 digit.ts && node digit.js",
+    "analog": "tsc --lib ES2017 analog.ts && node analog.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Volodin Sergey",
