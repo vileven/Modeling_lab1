@@ -1,0 +1,14 @@
+{
+  "name": "modeling_lab1",
+  "version": "1.0.0",
+  "description": "Лабораторная по моделированию №1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Volodin Sergey",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^2.6.2"
+  }
+}
