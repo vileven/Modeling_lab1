@@ -25,7 +25,10 @@ export const isTransitionLineRight: (line: number[]) => boolean =
 export const getArrayFrom1ToN: (N: number) => number[] =
 	N => Array.from(new Array(N),(_, index: number) => index + 1);
 
-
+/**
+ * Ввод исходных значений
+ * @returns {{n: number; initialVector: number[]; transitionMatrix: number[][]}} число состояний, вектор начальных значений и матрица перехода
+ */
 export const inputInitialValues: () => {n: number, initialVector: number[], transitionMatrix: number[][]} =
 	() => {
 		// Ввод числа состояний
